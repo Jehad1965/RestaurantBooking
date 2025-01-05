@@ -1,6 +1,7 @@
-
 package com.example.bookyourrestaurant.screens
 
+
+import android.util.Log
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -31,16 +32,24 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
     val coroutineScope = rememberCoroutineScope()
 
     ModalNavigationDrawer(
-
         drawerState = drawerState,
+        gesturesEnabled = true,
         drawerContent = {
             NavigationDrawerHeader()
-            NavigationDrawerBody(navigationDrawerItems = homeViewModel.navigationItemList)
+            NavigationDrawerBody(
+                navigationDrawerItems = homeViewModel.navigationItemList,
+                onNavigationItemClicked = {
+                    Log.d("ComingHere", "inside_onNavigationItemClicked")
+                    Log.d("ComingHere", "${it.itemId} ${it.title}")
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
+                }
+            )
         }
-
-    )
-    {
+    ) {
         Spacer(modifier = Modifier.height(20.dp))
+
         Scaffold(
             topBar = {
                 AppToolBar(
@@ -54,15 +63,16 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
                         }
                     },
                 )
-            }
+            },
+
         ) { paddingValues ->
             Surface(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
-                color = Color.Yellow
+                color = Color.LightGray
             ) {
-
+                // Your screen content goes here
             }
         }
     }
