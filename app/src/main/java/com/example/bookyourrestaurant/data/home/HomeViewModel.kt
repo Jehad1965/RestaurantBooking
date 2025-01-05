@@ -2,6 +2,7 @@ package com.example.bookyourrestaurant.data.home
 
 import android.util.Log
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
@@ -22,10 +23,10 @@ class HomeViewModel : ViewModel() {
            itemId = "homeScreen"
        ),
        NavigationItem(
-           title = "Settings",
-           icon = Icons.Default.Settings,
-           description = "Settings Screen",
-           itemId = "SettingsScreen"
+           title = "User profile",
+           icon = Icons.Default.AccountCircle,
+           description = "User profile Screen",
+           itemId = "User profile"
        ),
        NavigationItem(
            title = "Favorite",
