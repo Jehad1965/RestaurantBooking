@@ -2,9 +2,11 @@
 
 package com.example.bookyourrestaurant.componants
 
+import android.icu.text.CaseMap.Title
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -45,8 +47,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
@@ -65,6 +69,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bookyourrestaurant.R
@@ -394,7 +399,8 @@ fun UnderlineTextComponent(value: String){
 }
 
 @Composable fun AppToolBar(toolbarTitle: String, logoutButtonClicked: () -> Unit, navigationIconClicked: () -> Unit)
-{ TopAppBar( title = { Text(toolbarTitle) },
+{ TopAppBar(
+    title = { Text(toolbarTitle) },
     navigationIcon = { IconButton(onClick = navigationIconClicked)
     { Icon( painter = painterResource(id = R.drawable.baseline_menu_24),
         contentDescription = stringResource(id = R.string.menu) ) } },
@@ -404,23 +410,20 @@ fun UnderlineTextComponent(value: String){
 
 
 @Composable
-fun NavigationDrawerBody(navigationDrawerItems: List<NavigationItem>)
+fun NavigationDrawerBody(navigationDrawerItems: List<NavigationItem>, onNavigationItemClicked: (NavigationItem) -> Unit)
 { Column( modifier = Modifier .fillMaxHeight() .width(300.dp)
-    .background(Color.Cyan) )
+    .background(Color.LightGray) )
 { NavigationDrawerHeader()
-    Divider(color = Color.Gray)
-    Spacer(modifier = Modifier.height(20.dp))
     LazyColumn( modifier = Modifier
         .fillMaxSize()
-        .weight(5f) )
-    { items(navigationDrawerItems) { item -> NavigationItemRow(item = item) } } } }
+        .weight(10f) )
+    { items(navigationDrawerItems) { item -> NavigationItemRow(item = item, onNavigationItemClicked ) } } } }
 
 @Composable
 fun NavigationDrawerHeader() {
     Column (
-        modifier = Modifier.fillMaxWidth()
-
-            .background(Color.Green),
+        modifier = Modifier.size(300.dp)
+            .background(Primary),
              horizontalAlignment = Alignment.CenterHorizontally
     ){
         Spacer(modifier = Modifier.height(25.dp))
@@ -429,18 +432,11 @@ fun NavigationDrawerHeader() {
             contentDescription = "",
             modifier = Modifier.fillMaxWidth()
                 .height(200.dp)
-                .padding(all = 30.dp)
+                .padding(30.dp)
 
         )
+        NavigationDrawerText(title = stringResource(R.string.welcome), 24.sp)
 
-        Spacer(modifier = Modifier.height(16.dp))
-        Text( text = "Welcome Back ",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.fillMaxWidth()
-                .height(20.dp)
-                .align(Alignment.CenterHorizontally)
-                .size(20.dp))
     }
 
     Box(
@@ -452,23 +448,43 @@ fun NavigationDrawerHeader() {
     ) {
 
             Spacer(modifier = Modifier.height(16.dp))
-            HeadingTextComponent(
-                value = stringResource(R.string.welcome))
+
+
         }
     }
 
 @Composable
-fun NavigationItemRow(item : NavigationItem){
+fun NavigationItemRow(item : NavigationItem, onNavigationItemClicked:(NavigationItem)-> Unit ){
+    val shadowOffset = Offset(4f , 6f)
+
     Spacer(modifier = Modifier.height(10.dp))
     Row (modifier = Modifier
         .fillMaxWidth()
-        .padding(all = 8.dp))
+       .clickable {
+            onNavigationItemClicked.invoke(item)
+        } .padding(all = 16.dp))
     {
         Icon(
             imageVector = item.icon,
             contentDescription = item.description)
         Spacer(modifier = Modifier.width(10.dp))
-        NormalTextComponent(value = item.title)
+        NavigationDrawerText(item.title, 18.sp)
 
     }
+}
+@Composable
+ fun NavigationDrawerText(title: String, textUnit: TextUnit){
+    val shadowOffset = Offset(4f , 6f)
+    Text(
+        text = title, style = TextStyle(
+            color = Color.Black,
+            fontSize =textUnit,
+            fontStyle = FontStyle.Normal,
+            shadow = Shadow(
+                color = Secondary,
+                offset =  shadowOffset, 2f
+            )
+        )
+    )
+
 }
