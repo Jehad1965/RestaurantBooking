@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,23 +24,31 @@ import com.example.bookyourrestaurant.navigation.Screen
 
 @Composable
 fun SignUpScreen(signupViewModel: SignupViewModel = viewModel()) {
-    Box(modifier = Modifier.fillMaxSize(),
+
+    Box(modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center)
     {
-        Surface(
+        Image(painter = painterResource(id = R.drawable.back),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxSize())
+
+        /*Surface(
             color = Color.White,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(60.dp)
-                .background(Color.White)
-        ) {
+                .background(Color.White)*/
+
+
+
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 // Add Image at the top
                 Image(
-                    painter = painterResource(id = R.drawable.restaurant), // Replace 'logo' with your image resource name
+                    painter = painterResource(id = R.drawable.restaurant),
                     contentDescription = stringResource(id = R.string.welcome),
                     modifier = Modifier
                         .size(200.dp)
@@ -118,7 +127,8 @@ fun SignUpScreen(signupViewModel: SignupViewModel = viewModel()) {
 
 
     }
-}
+
+
 
 
 @Preview

@@ -12,7 +12,9 @@ import com.example.bookyourrestaurant.screens.HomeScreen
 import com.example.bookyourrestaurant.screens.LoginScreen
 import com.example.bookyourrestaurant.screens.SignUpScreen
 import com.example.bookyourrestaurant.screens.TermsAndConditionsScreen
+import com.example.bookyourrestaurant.screens.UserProfile
 import com.example.bookyourrestaurant.screens.splashScreen
+
 
 @Composable
 fun RestaurantApp(){
@@ -39,6 +41,9 @@ fun RestaurantApp(){
 
                 Screen.SplashScreen -> {
                     splashScreen()
+                }
+                Screen.UserProfile -> {
+                    UserProfile()
                 }
             }
 

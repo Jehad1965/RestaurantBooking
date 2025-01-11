@@ -59,9 +59,9 @@ dependencies {
     implementation (libs.androidx.lifecycle.viewmodel.compose.v240)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth.ktx)
-
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+    implementation("io.coil-kt:coil-compose:1.3.2")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

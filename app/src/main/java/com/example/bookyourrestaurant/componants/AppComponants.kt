@@ -84,7 +84,7 @@ fun NormalTextComponent(value: String){
 
     Text(text = value,
         modifier = Modifier
-            .fillMaxWidth()
+            .width(250.dp)
             .heightIn(min = 40.dp),
         style = TextStyle(
             fontSize = 20.sp,
@@ -128,7 +128,7 @@ fun MyTextFieldComponent(labelValue: String, painterResource: Painter,
   //  val  localFocusManager = LocalFocusManager.current
       OutlinedTextField(
           modifier = Modifier
-              .fillMaxWidth()
+              .width(350.dp)
               .clip(componentShape.small),
           label = {Text(text = labelValue)},
           value = textValue.value,
@@ -174,7 +174,7 @@ fun PasswordTextField(labelValue: String, painterResource: Painter,
 
     OutlinedTextField(
         modifier = Modifier
-            .fillMaxWidth()
+            .width(350.dp)
             .clip(componentShape.small),
             label = {Text(text = labelValue)},
             colors = TextFieldDefaults.colors(
@@ -286,7 +286,7 @@ fun ClickableTextComponent(value: String, onTextSelected : (String) -> Unit) {
 fun ButtonComponent( value: String, onButtonClicked : () -> Unit , isEnabled: Boolean = false){
    Button(
        modifier = Modifier
-           .fillMaxWidth()
+           .width(200.dp)
            .heightIn(48.dp),
        onClick = {
            onButtonClicked.invoke()
@@ -296,7 +296,7 @@ fun ButtonComponent( value: String, onButtonClicked : () -> Unit , isEnabled: Bo
        shape = RoundedCornerShape(50.dp),
        enabled = isEnabled
    ) {
-       Box(modifier = Modifier.fillMaxWidth()
+       Box(modifier = Modifier.width(200.dp)
            .heightIn(48.dp).background(
                brush = Brush.horizontalGradient(listOf(Secondary , Primary )),
                shape = RoundedCornerShape(50.dp),

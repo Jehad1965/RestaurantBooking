@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.bookyourrestaurant.R
 import com.example.bookyourrestaurant.navigation.RestaurantRouter
@@ -22,6 +23,8 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun splashScreen() {
+
+
     val scale = remember {
         Animatable(0f)
     }
@@ -46,6 +49,12 @@ fun splashScreen() {
     Box(contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
             .background(Color(0xffffc107))){
+
+        Image(painter = painterResource(id = R.drawable.back),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxSize())
+
         // change the logo
         Image(painter = painterResource(id = R.drawable.restaurant),
             contentDescription = "Logo",

@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,23 +39,26 @@ import com.example.bookyourrestaurant.navigation.SystemBackButtonHandler
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
+
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    Color.White
-                )
-                .padding(28.dp)
 
-        ) {
+
+
+            Image(painter = painterResource(id = R.drawable.back),
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier.fillMaxSize())
+
+
+
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                 Spacer(modifier = Modifier.height(70.dp))
                 // Add Image at the top
                 Image(
                     painter = painterResource(id = R.drawable.restaurant),
@@ -107,13 +111,14 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                 })
             }
         }
-    }
+
     if (loginViewModel.logInProgress.value) {
         CircularProgressIndicator()
     }
     SystemBackButtonHandler {
         RestaurantRouter.navigateTo(Screen.SignUpScreen)
     }
+
 }
 
 

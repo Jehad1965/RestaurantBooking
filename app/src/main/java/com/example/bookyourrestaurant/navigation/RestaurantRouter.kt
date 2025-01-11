@@ -9,6 +9,7 @@ sealed class  Screen(){
     data object LoginScreen : Screen()
     data object  HomeScreen :Screen()
     data object SplashScreen : Screen()
+    data object  UserProfile :Screen()
 }
 object RestaurantRouter{
     var currentScreen: MutableState<Screen> = mutableStateOf(Screen.SplashScreen)
