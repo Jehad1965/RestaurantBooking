@@ -1,8 +1,5 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.example.bookyourrestaurant.componants
 
-import android.icu.text.CaseMap.Title
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,10 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
@@ -32,7 +26,6 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -74,7 +67,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bookyourrestaurant.R
 import com.example.bookyourrestaurant.componentShape
-import com.example.bookyourrestaurant.data.NavigationItem
+import com.example.bookyourrestaurant.navigation.Screen
 import com.example.bookyourrestaurant.ui.theme.Primary
 import com.example.bookyourrestaurant.ui.theme.Secondary
 import com.example.bookyourrestaurant.ui.theme.TextColor
@@ -125,7 +118,7 @@ fun MyTextFieldComponent(labelValue: String, painterResource: Painter,
          val textValue = remember {
              mutableStateOf("")
          }
-  //  val  localFocusManager = LocalFocusManager.current
+
       OutlinedTextField(
           modifier = Modifier
               .width(350.dp)
@@ -151,12 +144,7 @@ fun MyTextFieldComponent(labelValue: String, painterResource: Painter,
               Icon(painter = painterResource, contentDescription = "")
 
           },
-          isError = !errorStatus
-
-      )
-
-    }
-
+          isError = !errorStatus) }
 @Composable
 fun PasswordTextField(labelValue: String, painterResource: Painter,
                       onTextSelected: (String) -> Unit,
@@ -218,13 +206,7 @@ fun PasswordTextField(labelValue: String, painterResource: Painter,
             }
         },
         visualTransformation = if(passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
-        isError = !errorStatus
-
-    )
-
-}
-
-
+        isError = !errorStatus) }
 @Composable
 fun TestBoxComponent(value: String, onTextSelected: (String) -> Unit, onCheckChange : (Boolean)-> Unit){
     Row(modifier = Modifier
@@ -238,22 +220,15 @@ fun TestBoxComponent(value: String, onTextSelected: (String) -> Unit, onCheckCha
         Checkbox(checked = checkedState.value,
             onCheckedChange = {
                 checkedState.value != checkedState.value
-                onCheckChange.invoke(it)
+                onCheckChange.invoke(it) })
 
-        })
-
-        ClickableTextComponent(value = value, onTextSelected)
-
-
-
-
-    }
-
-}
+        ClickableTextComponent(onTextSelected) } }
 
 
 @Composable
-fun ClickableTextComponent(value: String, onTextSelected : (String) -> Unit) {
+fun ClickableTextComponent(
+
+    onTextSelected: (String) -> Unit) {
     val initialText = "By continuing you accept our "
     val privacyPolicy = " Privacy Policy "
     val andText = " and "
@@ -335,7 +310,6 @@ fun DividerTextComponent(){
     }
 
 }
-
 @Composable
 fun ClickableLoginTextComponent(tryingToLogin:Boolean = true, onTextSelected : (String) -> Unit) {
     val initialText = if(tryingToLogin)"Already Have An Account?" else "Don't Have an Account? "
@@ -345,9 +319,7 @@ fun ClickableLoginTextComponent(tryingToLogin:Boolean = true, onTextSelected : (
         withStyle(style = SpanStyle(color = Color.Blue)) {
             pushStringAnnotation(tag = loginText, annotation = loginText)
             append(loginText)
-        }
-
-        }
+        } }
 
     ClickableText(
 
@@ -358,25 +330,16 @@ fun ClickableLoginTextComponent(tryingToLogin:Boolean = true, onTextSelected : (
             fontSize = 21.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Normal,
-            textAlign = TextAlign.Center
-
-            ),
-
-
+            textAlign = TextAlign.Center),
         text = annotatedString, onClick = { offset ->
         annotatedString.getStringAnnotations(offset, offset)
             .firstOrNull()?.also { span->
                 Log.d("ClickableTextComponent", "{${span.item}}")
                 if((span.item == loginText)) {
                     onTextSelected(span.item)
-                }
-
-            }
-    })
-}
+                } } }) }
 @Composable
 fun UnderlineTextComponent(value: String){
-
     Text(text = value,
         modifier = Modifier
             .fillMaxWidth()
@@ -385,19 +348,11 @@ fun UnderlineTextComponent(value: String){
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Normal,
-            fontFamily = FontFamily.Serif,
-
-            )
+            fontFamily = FontFamily.Serif,)
         , color = colorResource(id = R.color.colorGray),
         textAlign = TextAlign.Center,
-        textDecoration = TextDecoration.Underline
-
-    )
-
-
-
-}
-
+        textDecoration = TextDecoration.Underline) }
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable fun AppToolBar(toolbarTitle: String, logoutButtonClicked: () -> Unit, navigationIconClicked: () -> Unit)
 { TopAppBar(
     title = { Text(toolbarTitle) },
@@ -407,71 +362,50 @@ fun UnderlineTextComponent(value: String){
     actions = { IconButton(onClick = logoutButtonClicked)
     { Icon( painter = painterResource(id = R.drawable.baseline_logout_24),
         contentDescription = stringResource(id = R.string.logout) ) } } ) }
-
-
 @Composable
-fun NavigationDrawerBody(navigationDrawerItems: List<NavigationItem>, onNavigationItemClicked: (NavigationItem) -> Unit)
-{ Column( modifier = Modifier .fillMaxHeight() .width(300.dp)
-    .background(Color.LightGray) )
-{ NavigationDrawerHeader()
-    LazyColumn( modifier = Modifier
-        .fillMaxSize()
-        .weight(10f) )
-    { items(navigationDrawerItems) { item -> NavigationItemRow(item = item, onNavigationItemClicked ) } } } }
+fun NavigationDrawerBody(navigationDrawerItems: List<Screen>, onNavigationItemClicked: (Screen) -> Unit){
 
+    Column (modifier = Modifier.padding(8.dp)
+
+    ){
+        navigationDrawerItems.forEach { screen ->
+            Text( text = screen.toString(),
+             modifier = Modifier.padding(16.dp)
+                 .fillMaxWidth()
+               .clickable { onNavigationItemClicked(screen) } ) }
+    }
+
+    }
 @Composable
 fun NavigationDrawerHeader() {
+
     Column (
-        modifier = Modifier.size(300.dp)
-            .background(Primary),
+        modifier = Modifier.height(300.dp)
+            .padding(8.dp)
+            .background(Color(0xfff5f5dc)),
              horizontalAlignment = Alignment.CenterHorizontally
-    ){
-        Spacer(modifier = Modifier.height(25.dp))
+
+    )
+
+    {
+        Spacer(modifier = Modifier.height(30.dp))
         Image(
             painter = painterResource(R.drawable.restaurant),
             contentDescription = "",
-            modifier = Modifier.fillMaxWidth()
-                .height(200.dp)
-                .padding(30.dp)
+            modifier = Modifier.width(400.dp)
+                .fillMaxHeight())
 
-        )
-        NavigationDrawerText(title = stringResource(R.string.welcome), 24.sp)
-
-    }
-
+            NavigationDrawerText(title = stringResource(R.string.welcome), 24.sp)
+        }
     Box(
 
         modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .height(90.dp)
             .padding(10.dp)
     ) {
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-
-        }
-    }
-
-@Composable
-fun NavigationItemRow(item : NavigationItem, onNavigationItemClicked:(NavigationItem)-> Unit ){
-    val shadowOffset = Offset(4f , 6f)
-
-    Spacer(modifier = Modifier.height(10.dp))
-    Row (modifier = Modifier
-        .fillMaxWidth()
-       .clickable {
-            onNavigationItemClicked.invoke(item)
-        } .padding(all = 16.dp))
-    {
-        Icon(
-            imageVector = item.icon,
-            contentDescription = item.description)
-        Spacer(modifier = Modifier.width(10.dp))
-        NavigationDrawerText(item.title, 18.sp)
-
-    }
-}
+            Spacer(modifier = Modifier.height(1.dp)) } }
 @Composable
  fun NavigationDrawerText(title: String, textUnit: TextUnit){
     val shadowOffset = Offset(4f , 6f)
@@ -482,9 +416,4 @@ fun NavigationItemRow(item : NavigationItem, onNavigationItemClicked:(Navigation
             fontStyle = FontStyle.Normal,
             shadow = Shadow(
                 color = Secondary,
-                offset =  shadowOffset, 2f
-            )
-        )
-    )
-
-}
+                offset =  shadowOffset, 2f))) }
