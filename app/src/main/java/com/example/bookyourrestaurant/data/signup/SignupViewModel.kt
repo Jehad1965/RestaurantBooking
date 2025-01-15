@@ -122,7 +122,6 @@ class SignupViewModel : ViewModel() {
         Log.d(tAG, registrationUIState.value.toString())
     }
    private fun createUserInFirebase(email : String, password: String){
-
        signUpProgress.value = true
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).addOnCompleteListener {
                     Log.d(tAG, "Inside_OnCompleteListener")
@@ -130,7 +129,7 @@ class SignupViewModel : ViewModel() {
 
                     if(it.isSuccessful) {
                         signUpProgress.value=false
-                        RestaurantRouter.navigateTo(Screen.HomeScreen)
+                        RestaurantRouter.navigateTo(Screen.Home)
                     }
                 }
                 .addOnFailureListener{
@@ -140,18 +139,5 @@ class SignupViewModel : ViewModel() {
 
     }
 
-    fun logout(){
-     val firebaseAuth = FirebaseAuth.getInstance()
-     firebaseAuth.signOut()
-        val authStateListener = AuthStateListener{
-            if(it.currentUser ==  null) {
-            Log.d(tAG, "Inside sign outsuccess")
-                RestaurantRouter.navigateTo(Screen.LoginScreen)
-        }else{
-            Log.d(tAG, "Inside sign out is not complete")
-            }
-        }
-        firebaseAuth.addAuthStateListener(authStateListener)
-    }
 
 }
