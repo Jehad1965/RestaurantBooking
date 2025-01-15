@@ -4,11 +4,10 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.bookyourrestaurant.data.RegistrationUIState
+import com.example.bookyourrestaurant.data.rules.Validator
 import com.example.bookyourrestaurant.navigation.RestaurantRouter
 import com.example.bookyourrestaurant.navigation.Screen
-import com.example.bookyourrestaurant.data.rules.Validator
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 
 class SignupViewModel : ViewModel() {
 
@@ -115,7 +114,6 @@ class SignupViewModel : ViewModel() {
 
         )
          allValidationPassed.value = fNameResult.status && lNameResult.status && emailResult.status && passwordResult.status && privacyPolicyResult.status
-
     }
     private fun printState(){
         Log.d(tAG, "Inside_printState" )
