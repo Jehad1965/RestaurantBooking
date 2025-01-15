@@ -47,7 +47,7 @@ internal fun ComposableHandler(
 
 @Composable
 internal fun SystemBackButtonHandler(onBackPressed: () -> Unit) {
-   val lifecycleOwner = LocalLifecycleOwner.current
+   val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
 
    // Check if the lifecycleOwner is a ComponentActivity
    val dispatcherOwner = lifecycleOwner as? ComponentActivity
