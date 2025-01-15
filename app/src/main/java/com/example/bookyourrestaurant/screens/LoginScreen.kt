@@ -1,7 +1,7 @@
 package com.example.bookyourrestaurant.screens
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,19 +10,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.bookyourrestaurant.data.login.LoginViewModel
 import com.example.bookyourrestaurant.R
 import com.example.bookyourrestaurant.componants.ButtonComponent
 import com.example.bookyourrestaurant.componants.ClickableLoginTextComponent
@@ -30,13 +29,12 @@ import com.example.bookyourrestaurant.componants.DividerTextComponent
 import com.example.bookyourrestaurant.componants.MyTextFieldComponent
 import com.example.bookyourrestaurant.componants.NormalTextComponent
 import com.example.bookyourrestaurant.componants.PasswordTextField
-import com.example.bookyourrestaurant.componants.UnderlineTextComponent
 import com.example.bookyourrestaurant.data.login.LoginUIEvent
+import com.example.bookyourrestaurant.data.login.LoginViewModel
 import com.example.bookyourrestaurant.navigation.RestaurantRouter
 import com.example.bookyourrestaurant.navigation.Screen
 import com.example.bookyourrestaurant.navigation.SystemBackButtonHandler
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
 
@@ -51,8 +49,6 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier.fillMaxSize())
-
-
 
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -90,11 +86,17 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
                     errorStatus = loginViewModel.loginUIState.value.passwordError
                 )
                 Spacer(modifier = Modifier.height(40.dp))
-                UnderlineTextComponent(value = stringResource(id = R.string.forgot))
+               Text(text = " Forget Password ", textAlign = TextAlign.Center, modifier = Modifier
+                   .clickable {
 
-                Spacer(Modifier.height(40.dp))
-                ButtonComponent(
-                    value = stringResource(id = R.string.login),
+                       RestaurantRouter.navigateTo(Screen.ForgotPasswordScreen)
+               })
+
+
+
+                  Spacer(Modifier.height(40.dp))
+                  ButtonComponent(
+                      value = stringResource(id = R.string.login),
 
                     onButtonClicked = {
                         loginViewModel.onEvent(LoginUIEvent.LoginButton)
@@ -107,7 +109,6 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
 
                 ClickableLoginTextComponent(tryingToLogin = false, onTextSelected = {
                     RestaurantRouter.navigateTo(Screen.SignUpScreen)
-                    // Handle login click
                 })
             }
         }
@@ -115,6 +116,8 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
     if (loginViewModel.logInProgress.value) {
         CircularProgressIndicator()
     }
+
+
     SystemBackButtonHandler {
         RestaurantRouter.navigateTo(Screen.SignUpScreen)
     }
