@@ -21,6 +21,10 @@
     <string name="logout">logout</string>
     <string name="menu">menu</string>
     <string name="navigation_header">navigation_header</string>
+    <string name="user_profile">User Profile</string>
+    <string name="forgot_password">Forget Password</string>
+    <string name="email">email</string>
+    <string name="reset_password">Rest Password</string>
 
 
 </resources>
