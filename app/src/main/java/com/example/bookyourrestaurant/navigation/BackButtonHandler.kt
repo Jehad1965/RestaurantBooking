@@ -9,7 +9,6 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.platform.LocalLifecycleOwner
 
 // Custom CompositionLocal for OnBackPressedDispatcher
 private val LocalOnBackPressedDispatcher = staticCompositionLocalOf<OnBackPressedDispatcherOwner?> { null }
