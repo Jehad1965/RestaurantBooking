@@ -33,14 +33,6 @@ fun SignUpScreen(signupViewModel: SignupViewModel = viewModel()) {
             contentScale = ContentScale.FillBounds,
             modifier = Modifier.fillMaxSize())
 
-        /*Surface(
-            color = Color.White,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(60.dp)
-                .background(Color.White)*/
-
-
 
             Column(
                 modifier = Modifier.fillMaxWidth(),
