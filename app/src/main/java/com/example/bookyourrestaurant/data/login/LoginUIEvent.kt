@@ -4,9 +4,8 @@ package com.example.bookyourrestaurant.data.login
 
     data class EmailChanged(val email: String): LoginUIEvent()
     data class PasswordChanged(val password: String): LoginUIEvent()
-
-
-    data object LoginButton : LoginUIEvent()
+     data class ForgotPassword(val email: String) : LoginUIEvent()
+     data object LoginButton : LoginUIEvent()
 
 
 }
