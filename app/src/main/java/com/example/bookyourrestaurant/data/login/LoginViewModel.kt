@@ -36,6 +36,9 @@ class LoginViewModel : ViewModel(){
              login()
 
             }
+            is LoginUIEvent.ForgotPassword ->{
+                Screen.ForgotPasswordScreen
+            }
         }
         validateLoginUIDataWithRules()
 
@@ -75,7 +78,7 @@ class LoginViewModel : ViewModel(){
 
              if(it.isSuccessful){
                  logInProgress.value= false
-                 RestaurantRouter.navigateTo(Screen.HomeScreen)
+                 RestaurantRouter.navigateTo(Screen.Home)
              }
 
 
