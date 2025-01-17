@@ -120,6 +120,7 @@ class SignupViewModel : ViewModel() {
         Log.d(tAG, registrationUIState.value.toString())
     }
    private fun createUserInFirebase(email : String, password: String){
+
        signUpProgress.value = true
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).addOnCompleteListener {
                     Log.d(tAG, "Inside_OnCompleteListener")
